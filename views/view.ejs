@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <style>
+        body {
+            background: linear-gradient(135deg, #1E1A17, #2C2521, #3B302A);
+            font-family: 'Poppins', sans-serif;
+            color: #F5EFE6;
+        }
+
+        /* Title */
+        .title {
+            font-family: 'Playfair Display', serif;
+            font-size: 34px;
+            color: #F8F4EE;
+            /* brighter */
+        }
+
+        /* Card */
+        .card {
+            background: #2F2925;
+            /* lighter than before */
+            border-radius: 18px;
+            border: 1px solid rgba(230, 211, 179, 0.12);
+            transition: all 0.3s ease;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.6);
+        }
+
+        /* Image */
+        .card img {
+            height: 260px;
+            object-fit: cover;
+        }
+
+        /* Text FIX */
+        .card h5 {
+            color: #FFF8EE;
+            /* FIX → now visible */
+            font-weight: 500;
+        }
+
+        .card small {
+            color: #D6C6A8;
+            /* soft beige */
+        }
+
+        /* Description */
+        .card p {
+            color: #CBBCA7;
+        }
+
+        /* Price */
+        .price {
+            color: #E6C98A;
+            /* richer gold */
+            font-weight: 600;
+        }
+
+        /* Container spacing */
+        .container {
+            margin-top: 70px;
+            padding-bottom: 60px;
+            /* FIX bottom space */
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <%- include('./partials/header.ejs') %>
+
+        <div class="container">
+
+            <h2 class="title mb-5">Curated Collection</h2>
+
+            <div class="row g-4">
+
+                <% books.forEach(book=> { %>
+
+                    <div class="col-md-4">
+                        <div class="card">
+
+                            <img src="/<%= book.image %>" alt="book">
+
+                            <div class="card-body">
+
+                                <h5>
+                                    <%= book.title %>
+                                </h5>
+                                <small style="color:#cbbca7;">by <%= book.author %></small>
+
+                                <p class="mt-2 small">
+                                    <%= book.description.substring(0,100) %>...
+                                </p>
+
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+
+                                    <span class="price">₹ <%= book.price %></span>
+
+                                    <div>
+                                        <a href="/books/edit/<%= book._id %>" class="btn btn-warning btn-sm">Edit</a>
+
+                                        <a href="/books/delete/<%= book._id %>" class="btn btn-danger btn-sm"
+                                            onclick="return confirm('Delete this book?')">
+                                            Delete
+                                        </a>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <% }) %>
+
+            </div>
+
+        </div>
+
+</body>
+
+</html>
